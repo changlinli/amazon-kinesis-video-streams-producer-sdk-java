@@ -135,6 +135,24 @@ public class Log {
     }
 
     /**
+     * Basic logging function with a single string message with an additional
+     * throwable argument; mainly useful for logging exceptions.
+     *
+     * @param logLevel
+     *         Log level
+     * @param message
+     *         Message to log
+     * @param throwable
+     *         Some throwable that we wish to log
+     */
+    public void log(final LogLevel logLevel, final String message, final Throwable throwable) {
+        final String fullMessage = message + ": " + throwable.getMessage();
+        if (logLevel.getLogLevel() >= mCurrentLogLevel.getLogLevel()) {
+            mOutputChannel.print(logLevel.getLogLevel(), mTag, fullMessage);
+        }
+    }
+
+    /**
      * Parameterized versions of the logging functions
      *
      * @param logLevel
@@ -149,6 +167,23 @@ public class Log {
     }
 
     /**
+     * Parameterized versions of the logging functions with an additional
+     * throwable argument. Useful for logging exceptions.
+     *
+     * @param logLevel
+     *         Log level
+     * @param template
+     *         String template
+     * @param args
+     *         Arguments
+     * @param throwable
+     *         Throwable we wish to log as well
+     */
+    public void log(final LogLevel logLevel, final String template, final Throwable throwable, final Object... args) {
+        log(logLevel, String.format(template, args), throwable);
+    }
+
+    /**
      * Verbose logging
      *
      * @param message
@@ -156,6 +191,18 @@ public class Log {
      */
     public void verbose(final String message) {
         log(LogLevel.VERBOSE, message);
+    }
+
+    /**
+     * Verbose logging with throwable
+     *
+     * @param message
+     *         Message to log
+     * @param throwable
+     *         Throwable we wish to log
+     */
+    public void verbose(final String message, Throwable throwable) {
+        log(LogLevel.VERBOSE, message, throwable);
     }
 
     /**
@@ -181,6 +228,18 @@ public class Log {
     }
 
     /**
+     * Debug logging with throwable
+     *
+     * @param message
+     *         Message to log
+     * @param throwable
+     *         Throwable we wish to log
+     */
+    public void debug(final String message, Throwable throwable) {
+        log(LogLevel.DEBUG, message, throwable);
+    }
+
+    /**
      * Debug level logging in a parameterized string
      *
      * @param template
@@ -200,6 +259,18 @@ public class Log {
      */
     public void info(final String message) {
         log(LogLevel.INFO, message);
+    }
+
+    /**
+     * Info logging with throwable
+     *
+     * @param message
+     *         Message to log
+     * @param throwable
+     *         Throwable we wish to log
+     */
+    public void info(final String message, Throwable throwable) {
+        log(LogLevel.INFO, message, throwable);
     }
 
     /**
@@ -225,6 +296,18 @@ public class Log {
     }
 
     /**
+     * Warning logging with throwable
+     *
+     * @param message
+     *         Message to log
+     * @param throwable
+     *         Throwable we wish to log
+     */
+    public void warn(final String message, Throwable throwable) {
+        log(LogLevel.WARN, message, throwable);
+    }
+
+    /**
      * Warning level logging in a parameterized string
      *
      * @param template
@@ -244,6 +327,18 @@ public class Log {
      */
     public void error(final String message) {
         log(LogLevel.ERROR, message);
+    }
+
+    /**
+     * Error logging with throwable
+     *
+     * @param message
+     *         Message to log
+     * @param throwable
+     *         Throwable we wish to log
+     */
+    public void error(final String message, Throwable throwable) {
+        log(LogLevel.ERROR, message, throwable);
     }
 
     /**
